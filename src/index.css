@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+    /* Stops the use of scrolling */
+    height: 93%;
+    width: 100%;
+    margin: 0;
+    background-color: var(--figma-color-bg);
+    color: var(--figma-color-text);
+}
