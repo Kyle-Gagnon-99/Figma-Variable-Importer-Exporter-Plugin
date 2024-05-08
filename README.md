@@ -70,3 +70,16 @@ So a couple of things to note with this structure. It supports variables being n
 ```
 
 And you want to reference the color of the button in another variable, you would use `button/color` as the value of the alias. If the collection was named Colors it would be `Colors:button/color`.
+
+## License
+
+Please see LICENSE for the license of this software.
+
+## Contact
+
+If you have any questions, comments, or are using this plugin, please send me an email at:
+
+Name: Kyle Gagnon
+Email: kmgagnon99@gmail.com
+
+You can also open an issue. I don't have a template for it currently but will possibly add in the future.
