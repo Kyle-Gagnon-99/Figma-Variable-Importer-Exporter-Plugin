@@ -80,6 +80,7 @@ Please see LICENSE for the license of this software.
 If you have any questions, comments, or are using this plugin, please send me an email at:
 
 Name: Kyle Gagnon
+
 Email: kmgagnon99@gmail.com
 
 You can also open an issue. I don't have a template for it currently but will possibly add in the future.
