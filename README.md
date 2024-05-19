@@ -20,56 +20,9 @@ Please note that this plugin does support multiple modes for each collection. Mu
 8. Click on `Create new plugin`
 9. You should now see the plugin in the plugins menu
 
-## Future
+## Usage
 
-The plugin is still in development. This will be added to the Figma community when at least the export functionality is working. Currently only the import functionality is working.
-
-## How to use
-
-How to use the plugin will be written here when the plugin is ready for use.
-
-## JSON structure
-
-The JSON structure for importing and exporting variables is as follows:
-
-```json
-{
-    "collections": [
-        {
-            "name": "Collection 1",
-            "description": "This is collection 1",
-            "modes": ["Value1"],
-            "variables": {
-                "root-variable": {
-                    "child": {
-                        "type": "color|number|string|boolean|alias",
-                        "values": {
-                            "Value 1": "#000000"
-                        }
-                    }
-                }
-            }
-        }
-    ]
-}
-```
-
-So a couple of things to note with this structure. It supports variables being nested. This means when you do something like button-color, it will be represented as button/color in Figma. This allows for dynamic design systems with organized design tokens. The `modes` array is not optional. You must define your default mode at least (whether you use multiple modes or not). Each value of a variable can be a color, number, string, boolean or an alias. An alias is a reference to another variable. To reference another variable you must use the following syntax: `CollectionName:VariableName`. CollectionName is the name of the collection that the variable resides in (even if it is in the same collection). The VariableName is in the format of the nested variable in slashes. For example if you have the following
-
-```json
-{
-    "button": {
-        "color": {
-            "type": "color",
-            "values": {
-                "Value 1": "#000000"
-            }
-        }
-    }
-}
-```
-
-And you want to reference the color of the button in another variable, you would use `button/color` as the value of the alias. If the collection was named Colors it would be `Colors:button/color`.
+Please see the [How To Use](doc/HowToUse.md) document for information on how to use this plugin.
 
 ## License
 

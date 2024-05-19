@@ -193,7 +193,11 @@ export function convertRgbToHsl(r: number, g: number, b: number): string {
     ];
 
     // Use chroma to convert to HSL
-    const [h, s, l] = chroma(r_scale, g_scale, b_scale).hsl();
+    let [h, s, l] = chroma(r_scale, g_scale, b_scale).hsl();
+
+    if (isNaN(h)) {
+        h = 0;
+    }
 
     // Convert the HSL into a hsl(hue, saturation%, lightness%) string. Saturation and lightness are between 0 - 1 so *100
     // TODO - In the possible future, have the ability to select the HSL format as well (like HSL() or hsl() or just the values, or with percents)
@@ -274,7 +278,11 @@ export function convertRgbaToHsla(
     ];
 
     // Use chroma to convert to HSLA
-    const [h, s, l] = chroma(r_scale, g_scale, b_scale).hsl();
+    let [h, s, l] = chroma(r_scale, g_scale, b_scale).hsl();
+
+    if (isNaN(h)) {
+        h = 0;
+    }
 
     // Return in HSLA format
     return String(

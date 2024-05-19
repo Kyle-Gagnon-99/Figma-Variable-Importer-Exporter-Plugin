@@ -32,18 +32,11 @@ export class VarExporter {
      * The list of collection names only
      */
     private collectionNamesOnly: Map<string, string> = new Map();
-    /**
-     * This is a map of collection names to the default mode used to resolve aliases
-     */
-    //@ts-ignore
-    private collectionToDefaultMode: Map<string, string>;
 
     /**
      * Default constructor
      */
-    constructor(collectionToDefaultMode: Map<string, string>) {
-        this.collectionToDefaultMode = collectionToDefaultMode;
-    }
+    constructor() {}
 
     /**
      * Collects the variables from Figma and stores them in the class
@@ -98,11 +91,7 @@ export class VarExporter {
      * @param resolveAlias If true, then resolve the alias to the actual value
      * @param colorFormat The format of the color to export
      */
-    varsToJson(
-        collectionToExport: string,
-        resolveAlias: boolean,
-        colorFormat: ColorFormat,
-    ): string {
+    varsToJson(collectionToExport: string, colorFormat: ColorFormat): string {
         /**
          * Convert the collected variables into the JSON
          *
@@ -163,7 +152,6 @@ export class VarExporter {
                 // Get the variable information
                 const varInfo = this.getVariableInfo(
                     variable,
-                    resolveAlias,
                     colorFormat,
                     figmaCollection.modes,
                 );
@@ -208,7 +196,6 @@ export class VarExporter {
      */
     private getVariableInfo(
         variable: Variable,
-        resolveAlias: boolean,
         colorFormat: ColorFormat,
         modes: Array<{ modeId: string; name: string }>,
     ): ConfigVariableValue {
@@ -226,17 +213,22 @@ export class VarExporter {
             varInfo.values[mode.name] = this.variableValueToVarType(
                 value,
                 colorFormat,
-                resolveAlias,
             );
         });
 
         return varInfo;
     }
 
+    /**
+     * Converts the Figma variable type to the actual type. If it is a color, then use the given format.
+     *
+     * @param value The Figma VariableValue
+     * @param colorFormat The color format to convert to (if it is a color)
+     * @returns
+     */
     private variableValueToVarType(
         value: VariableValue,
         colorFormat: ColorFormat,
-        resolveAlias: boolean,
     ): VarType {
         // Do a switch case based on the type of the value
         switch (typeof value) {
@@ -257,10 +249,7 @@ export class VarExporter {
                     // In order to try to resolve it, we need to take the ID, find the variable, and keep going until we find the actual value
                     // If we can't find the value, then look up the ID in the map of Figma IDs to variables and return that
                     // If we can't find that, then return a default value
-                    return this.resolveVariableAlias(
-                        value as VariableAlias,
-                        resolveAlias,
-                    );
+                    return this.resolveVariableAlias(value as VariableAlias);
                 }
         }
     }
@@ -283,11 +272,7 @@ export class VarExporter {
         }
     }
 
-    private resolveVariableAlias(
-        alias: VariableAlias,
-        //@ts-ignore
-        resolveAlias: boolean,
-    ): string {
+    private resolveVariableAlias(alias: VariableAlias): string {
         // In Figma, the VariableAlias will be the Figma ID to the variable, so look it up in the map and return the Collection:Variable format
         // If we are resolving it, try to keep finding the variable until we either reach the actual value or we can't go any further. If we can't
         // then return a default value

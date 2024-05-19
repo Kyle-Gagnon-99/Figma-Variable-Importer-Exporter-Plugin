@@ -36,21 +36,30 @@ export enum ValidationErrorCodes {
     UNABLE_TO_ADD_MODE = "UNABLE_TO_ADD_MODE",
 }
 
+/**
+ * The structure of the validation errors
+ */
 export interface ValidationError {
+    /**
+     * The variable OR collection name.
+     */
     variableName: string;
+    /**
+     * The error message.
+     */
     message: string;
+    /**
+     * The error code.
+     */
     errorCode: string;
 }
 
+/**
+ * The different message types that get passed back and forth from the frontend to backend.
+ */
 export enum MessageType {
     UPLOAD_FILE = "UPLOAD_FILE",
     VALIDATION_ERRORS = "VALIDATION_ERRORS",
-    GET_SETTINGS = "GET_SETTINGS",
-    GET_SETTINGS_RESPONSE = "GET_SETTINGS_RESPONSE",
-    GET_SETTINGS_ERROR = "GET_SETTINGS_ERROR",
-    SET_SETTINGS = "SET_SETTINGS",
-    SET_SETTINGS_RESPONSE = "SET_SETTINGS_RESPONSE",
-    SET_SETTINGS_ERROR = "SET_SETTINGS_ERROR",
     EXPORT_VARIABLES = "EXPORT_VARIABLES",
     EXPORT_VARIABLES_RESPONSE = "EXPORT_VARIABLES_RESPONSE",
     GET_COLLECTIONS = "GET_COLLECTIONS",
@@ -60,28 +69,8 @@ export enum MessageType {
 }
 
 /**
- * The list of settings to use when importing / exporting
- *
- * - failOnNullAlias: boolean - Used to determine if the validation should fail if it could not find the referenced value
- * - numberFallback: number - Used as the default number if the referenced value was not found
- * - colorFallback: string - Used as the default color if the referenced value was not found
- * - booleanFallback: boolean - Used as the default boolean if the referenced value was not found
- * - stringFallback: string - Used as the default string if the referenced value was not found
+ * The data structure of the message that is sent from the iframe (plugin) to the parent (Figma)
  */
-export interface UserSettings {
-    failOnNullAlias: boolean;
-    numberFallback: number;
-    colorFallback: string;
-    booleanFallback: boolean;
-    stringFallback: string;
-    extendCollections: boolean;
-}
-
-export interface ErrorDetails {
-    title: string;
-    message: string;
-}
-
 export interface PluginMessageData {
     pluginMessage: {
         type: MessageType;
@@ -90,6 +79,9 @@ export interface PluginMessageData {
     pluginId: string;
 }
 
+/**
+ * The different types of color formats supported.
+ */
 export enum ColorFormat {
     HEX = "HEX",
     RGB = "RGB",
@@ -99,42 +91,52 @@ export enum ColorFormat {
     HEXA = "HEXA",
 }
 
+/**
+ * The request to export variables.
+ */
 export interface ExportVariablesRequest {
     /**
      * The collection to export
      */
     collection: string;
     /**
-     * Whether or not we should resolve aliases to their values
-     */
-    resolveAlias: boolean;
-    /**
      * The color format to use when exporting colors
      */
     colorFormat: ColorFormat;
-    /**
-     * The map of collection names to the user selected default mode
-     */
-    collectionModeMap: Map<string, string>;
 }
 
+/**
+ * The request to resize the plugin.
+ */
 export interface ResizeRequest {
+    /**
+     * The width.
+     */
     w: number;
+    /**
+     * The height.
+     */
     h: number;
 }
 
+/**
+ * The different views that correspond to the plugin command menu.
+ */
 export enum ChangeViewOptions {
     IMPORT = "import-vars",
     EXPORT = "export-vars",
 }
 
-export interface ChangeViewListener {
-    detail: {
-        view: ChangeViewOptions;
-    };
-}
-
+/**
+ * The request to import variables.
+ */
 export interface ImportVarsRequest {
+    /**
+     * The JSON content.
+     */
     json: string;
+    /**
+     * Whether or not the existing collections should be used or new ones should be created.
+     */
     useExistingCollections: boolean;
 }

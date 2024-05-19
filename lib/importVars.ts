@@ -3,7 +3,6 @@ import {
     ValidationError,
     ValidationErrorCodes,
 } from "../src/import-export";
-import { globalUserSettings } from "./code";
 import {
     convertTypeToFigmaType,
     getCollectionName,
@@ -387,36 +386,27 @@ export class VarImporter {
                     !this.varMap.has(value as string) &&
                     !this.collectedFigmaVars.has(value as string)
                 ) {
-                    if (globalUserSettings.failOnNullAlias) {
-                        this.validationErrors.push({
-                            variableName: variableName,
-                            message: `Reference ${value} not found`,
-                            errorCode:
-                                ValidationErrorCodes.MISSING_VARIABLE_ALIAS,
-                        });
-                    } else {
-                        // Set the fallback value
-                        if (valueType === "number") {
-                            variable.values = {
-                                ...variable.values,
-                                [mode]: globalUserSettings.numberFallback,
-                            };
-                        } else if (valueType === "boolean") {
-                            variable.values = {
-                                ...variable.values,
-                                [mode]: globalUserSettings.booleanFallback,
-                            };
-                        } else if (valueType === "string") {
-                            variable.values = {
-                                ...variable.values,
-                                [mode]: globalUserSettings.stringFallback,
-                            };
-                        } else if (valueType === "color") {
-                            variable.values = {
-                                ...variable.values,
-                                [mode]: globalUserSettings.colorFallback,
-                            };
-                        }
+                    // Set the fallback value
+                    if (valueType === "number") {
+                        variable.values = {
+                            ...variable.values,
+                            [mode]: 0,
+                        };
+                    } else if (valueType === "boolean") {
+                        variable.values = {
+                            ...variable.values,
+                            [mode]: false,
+                        };
+                    } else if (valueType === "string") {
+                        variable.values = {
+                            ...variable.values,
+                            [mode]: "",
+                        };
+                    } else if (valueType === "color") {
+                        variable.values = {
+                            ...variable.values,
+                            [mode]: "#FFFFFF",
+                        };
                     }
                 }
             }
