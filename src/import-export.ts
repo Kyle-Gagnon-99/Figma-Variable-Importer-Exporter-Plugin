@@ -32,6 +32,8 @@ export enum ValidationErrorCodes {
     MISSING_VARIABLE_VALUES = "MISSING_VARIABLE_VALUES",
     MISSING_VARIABLE_NAME = "MISSING_VARIABLE_NAME",
     MISSING_VARIABLE_ALIAS = "MISSING_VARIABLE_ALIAS",
+
+    UNABLE_TO_ADD_MODE = "UNABLE_TO_ADD_MODE",
 }
 
 export interface ValidationError {
@@ -49,6 +51,12 @@ export enum MessageType {
     SET_SETTINGS = "SET_SETTINGS",
     SET_SETTINGS_RESPONSE = "SET_SETTINGS_RESPONSE",
     SET_SETTINGS_ERROR = "SET_SETTINGS_ERROR",
+    EXPORT_VARIABLES = "EXPORT_VARIABLES",
+    EXPORT_VARIABLES_RESPONSE = "EXPORT_VARIABLES_RESPONSE",
+    GET_COLLECTIONS = "GET_COLLECTIONS",
+    GET_COLLECTIONS_RESPONSE = "GET_COLLECTIONS_RESPONSE",
+    RESIZE_WINDOW = "RESIZE_WINDOW",
+    CHANGE_VIEW_REQUEST = "CHANGE_VIEW_REQUEST",
 }
 
 /**
@@ -80,4 +88,53 @@ export interface PluginMessageData {
         data: any;
     };
     pluginId: string;
+}
+
+export enum ColorFormat {
+    HEX = "HEX",
+    RGB = "RGB",
+    HSL = "HSL",
+    HSLA = "HSLA",
+    RGBA = "RGBA",
+    HEXA = "HEXA",
+}
+
+export interface ExportVariablesRequest {
+    /**
+     * The collection to export
+     */
+    collection: string;
+    /**
+     * Whether or not we should resolve aliases to their values
+     */
+    resolveAlias: boolean;
+    /**
+     * The color format to use when exporting colors
+     */
+    colorFormat: ColorFormat;
+    /**
+     * The map of collection names to the user selected default mode
+     */
+    collectionModeMap: Map<string, string>;
+}
+
+export interface ResizeRequest {
+    w: number;
+    h: number;
+}
+
+export enum ChangeViewOptions {
+    IMPORT = "import-vars",
+    EXPORT = "export-vars",
+}
+
+export interface ChangeViewListener {
+    detail: {
+        view: ChangeViewOptions;
+    };
+}
+
+export interface ImportVarsRequest {
+    json: string;
+    useExistingCollections: boolean;
 }

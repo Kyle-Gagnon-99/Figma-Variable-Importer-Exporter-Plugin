@@ -4,7 +4,7 @@
 
 html, body {
     /* Stops the use of scrolling */
-    height: 93%;
+    height: 100%;
     width: 100%;
     margin: 0;
     background-color: var(--figma-color-bg);

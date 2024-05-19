@@ -10,16 +10,25 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@types/color-string": "^1.5.5",
+        "chroma-js": "^2.4.2",
+        "color-parse": "^2.0.2",
+        "color-string": "^1.9.1",
         "figma-plugin-ds": "^1.0.1",
         "preact": "^10.19.6",
         "preact-router": "^4.1.2",
-        "react-color": "^2.19.3"
+        "prismjs": "^1.29.0",
+        "react-color": "^2.19.3",
+        "react-syntax-highlighter": "^15.5.0"
     },
     "devDependencies": {
         "@figma/eslint-plugin-figma-plugins": "^0.15.0",
         "@figma/plugin-typings": "^1.88.0",
         "@preact/preset-vite": "^2.8.2",
+        "@types/chroma-js": "^2.4.4",
+        "@types/prismjs": "^1.26.4",
         "@types/react-color": "^3.0.12",
+        "@types/react-syntax-highlighter": "^15.5.13",
         "autoprefixer": "^10.4.19",
         "cssnano": "^6.1.2",
         "eslint": "^8.57.0",

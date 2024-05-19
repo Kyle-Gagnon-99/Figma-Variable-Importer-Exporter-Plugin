@@ -10,5 +10,9 @@
     "networkAccess": {
         "allowedDomains": ["https://cdn.jsdelivr.net", "https://rsms.me"]
     },
-    "documentAccess": "dynamic-page"
+    "documentAccess": "dynamic-page",
+    "menu": [
+        { "name": "Import", "command": "import-vars" },
+        { "name": "Export", "command": "export-vars" }
+    ]
 }
