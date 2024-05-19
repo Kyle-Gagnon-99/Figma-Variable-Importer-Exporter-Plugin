@@ -24,6 +24,12 @@ Please note that this plugin does support multiple modes for each collection. Mu
 
 Please see the [How To Use](doc/HowToUse.md) document for information on how to use this plugin.
 
+## Credits
+
+The style of the plugin was inspired by [Figma Variables To JSON](https://www.figma.com/community/plugin/1345399750040406570/figma-variables-to-json).
+
+The logo was from Figma's variable icon.
+
 ## License
 
 Please see LICENSE for the license of this software.
