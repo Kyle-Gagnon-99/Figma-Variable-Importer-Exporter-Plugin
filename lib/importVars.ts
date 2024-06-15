@@ -1,3 +1,4 @@
+import chroma from "chroma-js";
 import {
     MessageType,
     ValidationError,
@@ -569,6 +570,7 @@ export class VarImporter {
                                 errorCode:
                                     ValidationErrorCodes.UNABLE_TO_ADD_MODE,
                             });
+                            return;
                         }
                     });
                 }
@@ -593,7 +595,10 @@ export class VarImporter {
 
                 // Remove the default created mode called Mode 1
                 createdCollection.modes.forEach((mode) => {
-                    if (mode.name === "Mode 1") {
+                    if (
+                        mode.name === "Mode 1" &&
+                        createdCollection.modes.length > 1
+                    ) {
                         createdCollection.removeMode(mode.modeId);
                     }
                 });
@@ -669,6 +674,10 @@ export class VarImporter {
                         `Import/Export - Severe Error: Could not create variable ${varName}`,
                     );
                     return;
+                }
+
+                if (varValue.description) {
+                    createdVariable.description = varValue.description;
                 }
 
                 // Set the value if it is a primitive (not a reference)
@@ -812,14 +821,18 @@ export class VarImporter {
                 break;
             case "color":
                 // Need to convert the color to RGB
-                const convertedColor = figma.util.rgb(value as string);
+                //const convertedColor = figma.util.rgb(value as string);
+                const [r, g, b] = chroma(value as string).rgb();
+
+                const [r_scale, g_scale, b_scale] = [r / 255, g / 255, b / 255];
+
                 console.log(
-                    `Setting values to ${convertedColor.r}, ${convertedColor.g}, ${convertedColor.b} (from ${value})`,
+                    `Setting values to ${r_scale}, ${g_scale}, ${b_scale} (from ${value})`,
                 );
                 createdVariable.setValueForMode(modeId, {
-                    r: convertedColor.r,
-                    g: convertedColor.g,
-                    b: convertedColor.b,
+                    r: r_scale,
+                    g: g_scale,
+                    b: b_scale,
                 });
                 break;
         }

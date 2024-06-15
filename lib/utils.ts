@@ -203,7 +203,9 @@ export function convertRgbToHsl(r: number, g: number, b: number): string {
     // TODO - In the possible future, have the ability to select the HSL format as well (like HSL() or hsl() or just the values, or with percents)
     // When doing that, make sure to update validation to support multiple different ways of accepting HSL, HSLA, HEX, RGB, RGB and more
     // I think chroma may be able to do this for us!
-    return String(`hsl(${h}, ${Math.round(s * 100)}%, ${Math.round(l * 100)})`);
+    return String(
+        `hsl(${Math.round(h)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)})`,
+    );
 }
 
 /**
@@ -286,7 +288,7 @@ export function convertRgbaToHsla(
 
     // Return in HSLA format
     return String(
-        `hsla(${h}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}, ${a_scale})`,
+        `hsla(${Math.round(h)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}, ${a_scale})`,
     );
 }
 
