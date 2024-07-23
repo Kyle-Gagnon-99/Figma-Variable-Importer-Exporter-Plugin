@@ -815,6 +815,12 @@ export class VarImporter {
     ) {
         switch (type) {
             case "string":
+                if (value === "NOT_SET") {
+                    createdVariable.setValueForMode(modeId, "");
+                } else {
+                    createdVariable.setValueForMode(modeId, value as string);
+                }
+                break;
             case "number":
             case "boolean":
                 createdVariable.setValueForMode(modeId, value);

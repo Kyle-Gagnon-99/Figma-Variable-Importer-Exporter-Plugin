@@ -204,7 +204,7 @@ export function convertRgbToHsl(r: number, g: number, b: number): string {
     // When doing that, make sure to update validation to support multiple different ways of accepting HSL, HSLA, HEX, RGB, RGB and more
     // I think chroma may be able to do this for us!
     return String(
-        `hsl(${Math.round(h)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)})`,
+        `hsl(${Math.round(h)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`,
     );
 }
 
@@ -288,7 +288,7 @@ export function convertRgbaToHsla(
 
     // Return in HSLA format
     return String(
-        `hsla(${Math.round(h)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}, ${a_scale})`,
+        `hsla(${Math.round(h)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%, ${a_scale.toFixed(2)})`,
     );
 }
 
@@ -315,5 +315,7 @@ export function convertRgbaToRgba(
     ];
 
     // Return the string in the formatted RGBA
-    return String(`rgba(${r_scale}, ${g_scale}, ${b_scale}, ${a_scale})`);
+    return String(
+        `rgba(${r_scale}, ${g_scale}, ${b_scale}, ${a_scale.toFixed(2)})`,
+    );
 }
